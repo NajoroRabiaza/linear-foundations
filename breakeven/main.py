@@ -8,14 +8,14 @@
 
 # Parametres du modele
 # on modifie ces trois valeurs pour varier les tests
-Cout_fixe = 200_000 # cout fixe : paye meme sans aucun user
+Cf = 200_000 # cout fixe : paye meme sans aucun user
 c = 150
 r = 300
 
 
 # fonctions du modele
 def cout_total(n):
-    return Cout_fixe + c * n
+    return Cf + c * n
 
 def recette(n):
     return r * n
