@@ -6,6 +6,9 @@
 #   Seuil n* : R(n*) = C(n*) => n* = Cf / ( r -c )
 # ======================================================
 
+import matplotlib.pyplot as plt
+
+
 # Parametres du modele
 # on modifie ces trois valeurs pour varier les tests
 Cf = 200_000 # cout fixe : paye meme sans aucun user
@@ -52,3 +55,46 @@ def afficher_rapport(n_etoile):
 # test d'execution
 n_etoile = seuil_rentabilite()
 afficher_rapport(n_etoile)
+
+
+def afficher_graphe(n_etoile):
+    # on genere 500 points entre 0 et 2 fois le seuil pour avoir une courbe lisse
+    pas = (2 * n_etoile) / 500
+    valeur_n = []
+    i = 0
+    while i<= 2*n_etoile:
+        valeur_n.append(i)
+        i += pas
+
+    # on calcule cout et recette pour chaque valeur de n
+    valeurs_cout = []
+    valeurs_recette = []
+    for n in valeur_n:
+        valeurs_cout.append(cout_total(n))
+        valeurs_recette.append(recette(n))
+
+    # construction du graphe
+    plt.figure(figsize=(10, 6))
+    plt.plot(valeur_n, valeurs_cout, color="red", label="Cout total C(n)")
+    plt.plot(valeur_n, valeurs_recette, color="green", label="Recette R(n)")
+
+    # ligne verticae pointiller au seuil
+    plt.axvline(x=n_etoile, color="gray", linestyle="--")
+
+    # annotation du seuil
+    plt.annotate(
+        f"n* = {int(n_etoile)}",
+        xy=(n_etoile, recette(n_etoile)),
+        xytext=(n_etoile + 50, recette(n_etoile) - 40000),
+    )
+
+    plt.title("seuil de rentabilite d'une application mobile")
+    plt.xlabel("Nombre d'user")
+    plt.ylabel("Montant en Ariary")
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+
+
+# appel de la graphe du fonction
+afficher_graphe(n_etoile)
