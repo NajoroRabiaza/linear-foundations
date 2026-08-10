@@ -96,5 +96,29 @@ def afficher_graphe(n_etoile):
     plt.show()
 
 
-# appel de la graphe du fonction
+def afficher_analyse_sensibilite():
+    # on fait varier r de 200 a 500 par pas de 50
+    # et on observe comment n* change pour chaque valeur de r
+    valeurs_r = []
+    valeurs_n_etoile = []
+
+    r_test = 200
+    while r_test <= 500:
+        # on ignore le cas ou r_test est egal a c car division par zero
+        if r_test > c:
+            n = Cf / (r_test - c)
+            valeurs_r.append(r_test)
+            valeurs_n_etoile.append(n)
+        r_test += 50
+
+    plt.figure(figsize=(10, 6))
+    plt.plot(valeurs_r, valeurs_n_etoile, color="blue", marker="o")
+    plt.title("Impact de la recette sur le seuil de rentabilite")
+    plt.xlabel("Recette par utilisateur (ar)")
+    plt.ylabel("seuil n* (nombre d'user)")
+    plt.grid(True)
+    plt.show()
+
+
+afficher_analyse_sensibilite()
 afficher_graphe(n_etoile)
