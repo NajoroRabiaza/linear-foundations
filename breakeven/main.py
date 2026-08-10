@@ -52,10 +52,6 @@ def afficher_rapport(n_etoile):
     print("=" * 50)
 
 
-# test d'execution
-n_etoile = seuil_rentabilite()
-afficher_rapport(n_etoile)
-
 
 def afficher_graphe(n_etoile):
     # on genere 500 points entre 0 et 2 fois le seuil pour avoir une courbe lisse
@@ -120,5 +116,8 @@ def afficher_analyse_sensibilite():
     plt.show()
 
 
-afficher_analyse_sensibilite()
-afficher_graphe(n_etoile)
+if __name__ == "__main__":
+    n_etoile = seuil_rentabilite()
+    afficher_rapport(n_etoile)
+    afficher_graphe(n_etoile)
+    afficher_analyse_sensibilite()
