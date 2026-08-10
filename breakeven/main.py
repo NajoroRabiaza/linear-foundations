@@ -1,9 +1,22 @@
 # ======================================================
 # Projet : Seuil de rentabilite d'une application mobile
+# Bloc : linear-foundations
+# Auteur : Amboaranajoro RAJAONARILALA
+# ------------------------------------------------------
+# 
+# 
 # Modele mathematique :
 #   Cout total : C(n) = Cf + c * n
 #   Recette : R(n) = r * n
-#   Seuil n* : R(n*) = C(n*) => n* = Cf / ( r -c )
+#   
+#   Au seuil n*, les deux sont egaux
+#   r * n* = Cf + c * n*
+#   n* (r - c) = Cf
+#   n* = Cf / (r - c)
+#   
+#   (r - c) est le gain net reel par utilisateur
+#   si r <= c, le seuil n'existe pas et chaque user fait perdre de l'argent
+#   
 # ======================================================
 
 import matplotlib.pyplot as plt
@@ -18,15 +31,25 @@ r = 300
 
 # fonctions du modele
 def cout_total(n):
+    """
+    Calcule le cout total pour n users
+    C(n) = Cf + c * n
+    """
     return Cf + c * n
 
 def recette(n):
+    """
+    calcule la recette totale pour n users
+    R(n) = r * n
+    """
     return r * n
 
 def seuil_rentabilite():
-    # n* = Cf / (r-c)
-    # on divise par (r-c) et pas par r seulement car chaque user
-    # coutte aussi c, donc le gain net reel par user est (r-c)
+    """
+    Calcule le nombre minimal de users pour etre rentable
+    n* = Cf / (r - c)
+    afficher ValueError si r <= c car le seuil n'existe pas
+    """
     if r-c <= 0:
         raise ValueError("la recette par user doit etre > au cout variable")
 
