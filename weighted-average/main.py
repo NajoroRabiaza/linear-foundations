@@ -11,6 +11,7 @@
 # La seule difference :les coef sont normaliser en probabilites
 # ===========================================================
 
+import matplotlib.pyplot as plt
 
 # donnees : listes de tuples (matiere, note, coefficient)
 matieres = [
@@ -103,4 +104,43 @@ def afficher_rapport(matieres):
     print("=" * 50)
 
 
-afficher_rapport(matieres)
+def afficher_graphe(matieres):
+    """
+    trace un graphe en barre horizontale
+    si note < 10 c'est rouge sinon c'est vert
+    """
+
+    noms = []
+    notes = []
+    couleurs = []
+
+    for matiere, note, coef in matieres:
+        noms.append(f"{matiere} (coef {coef})")
+        notes.append(note)
+        if note < 10:
+            couleurs.append("red")
+        else:
+            couleurs.append("green")
+
+    plt.figure(figsize=(10, 6))
+    plt.barh(noms, notes, color=couleurs)
+
+    # ligne verticale au seuil 10
+    plt.axvline(x=10, color="black", linestyle="--", label="Seuil 10")
+
+    # ligne verticale pour la moyenne generale
+    moyenne = moyenne_ponderee(matieres)
+    plt.axvline(x=moyenne, color="blue", linestyle="-", label=f"moyenne {moyenne:.2f}")
+
+    plt.title("notes par matiere")
+    plt.xlabel("note / 20")
+    plt.xlim(0, 20)
+    plt.legend()
+    plt.grid(axis="x")
+    plt.tight_layout()
+    plt.show()
+
+
+if __name__ == "__main__":
+    afficher_rapport(matieres)
+    afficher_graphe(matieres)
