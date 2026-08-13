@@ -8,7 +8,12 @@
 # 
 # C'est exactement la meme formule que l'esperance en probabilite
 # E[X] = sum(x_i * p_i)
-# La seule difference :les coef sont normaliser en probabilites
+# la difference : en probabilites les coef sont normaliser pour
+# que leur somme valle 1 et ici c'est pas obligatoire
+# 
+# Resolution inverse pour la note minimale :
+# M = (points_actuels + note * coef) / (total_coefs + coef)
+# => note = (M * (total_coefs + coef) - points_actuels) / coef
 # ===========================================================
 
 import matplotlib.pyplot as plt
