@@ -6,7 +6,7 @@
 # Modele mathematique :
 # Moyenne ponderer : M = sum(note_i * coef_i) / sum(coef_i)
 # 
-# C est exactement la meme formule que l'esperance en probabilite
+# C'est exactement la meme formule que l'esperance en probabilite
 # E[X] = sum(x_i * p_i)
 # La seule difference :les coef sont normaliser en probabilites
 # ===========================================================
@@ -141,6 +141,51 @@ def afficher_graphe(matieres):
     plt.show()
 
 
+def note_minimale_requise(matieres, matiere_cible, coef_cible, objectif=10.0):
+    """
+    calcule la note minimale a obtenir dans un matiere future
+    pour atteindre la moyenne objectif
+    raisonement :
+    M = (points_actuels + note_cible * coef_cible) / (coefs_actuels + coef_cible)
+    on isole note_cible avec
+    note_cible = (objectif * (coefs_actuels + coef_cible) - points_actuels) / coef_cible
+    """
+    total_points = 0
+    total_coefs = 0
+
+    for matiere, note, coef in matieres:
+        total_points += note * coef
+        total_coefs += coef
+
+    note_cible = (objectif * (total_coefs + coef_cible) - total_points) / coef_cible
+
+    return note_cible
+
+
+def afficher_note_minimale(matieres):
+    matiere_cible = "Reseaux"
+    coef_cible = 3
+    objectif = 10.0
+
+    note = note_minimale_requise(matieres, matiere_cible, coef_cible, objectif)
+
+    print("=" * 50)
+    print("SIMULATION : note minimale requise")
+    print("=" * 50)
+    print(f"Matiere future : {matiere_cible} (coef {coef_cible})")
+    print(f"Objectif : {objectif} / 20")
+    print(f"note a obtenir : {note:.2f} / 20")
+
+    if note > 20:
+        print("Impossible : meme 20/20 ne suffit pas.")
+    elif note < 0:
+        print("Deja atteint : la moyenne objectif est deja acquise.")
+    else:
+        print(f"il faut obtenir au moins {note:.2f} dans {matiere_cible}.")
+    print("=" * 50)
+
+
 if __name__ == "__main__":
     afficher_rapport(matieres)
+    afficher_note_minimale(matieres)
     afficher_graphe(matieres)
