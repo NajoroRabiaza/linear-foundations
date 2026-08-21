@@ -101,7 +101,3 @@ if __name__ == "__main__":
     log = croissance_logistique(N0, r, K, T)
     afficher_resultats(lin, exp, log, N0)
     
-
-print(f"lineaire : debut={lin[0]} fin={lin[-1]:.2f}")
-print(f"exponentiel : debut={exp[0]} fin={exp[-1]:.2f}")
-print(f"logistique : debut={log[0]} fin={log[-1]:.2f}")
