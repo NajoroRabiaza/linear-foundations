@@ -54,10 +54,53 @@ def croissance_logistique(N0, r, K, T):
     return resultats
 
 
-# test rapide
-lin = croissance_lineaire(N0, a, T)
-exp = croissance_exponentielle(N0, r, T)
-log = croissance_logistique(N0, r, K, T)
+
+def temps_doublement(resultats, N0):
+    """
+    Retourne le premier pas de temps ou la population a double,
+    Retourne None si le doublement n'a jamais exister
+    """
+    for t in range(len(resultats)):
+        if resultats[t] >= N0 * 2:
+            return t
+    return None
+
+
+def afficher_resultats(lin, exp, log, N0):
+    print("=" * 50)
+    print("resultats de la simulation")
+    print("=" * 50)
+    print(f"Population initiale : {N0}")
+    print(f"Pas de temps : {T}")
+    print("-" * 50)
+
+    print(f"lineaire : valeur finale = {lin[-1]:.2f}")
+    t_lin = temps_doublement(lin, N0)
+    if t_lin:
+        print(f" doublement a t = {t_lin}")
+
+    print(f"exponentiel : valeur finale = {exp[-1]:.2f}")
+    t_exp = temps_doublement(exp, N0)
+    if t_exp:
+        print(f" doublement a t = {t_exp}")
+
+    print(f"logistique : valeur finale = {log[-1]:.2f}")
+    t_log = temps_doublement(log, N0)
+    if t_log:
+        print(f" doublement a t = {t_log}")
+    else:
+        print(f" doublement non atteint")
+
+    print("=" * 50)
+
+
+
+if __name__ == "__main__":
+    lin = croissance_lineaire(N0, a, T)
+    exp = croissance_exponentielle(N0, r, T)
+    log = croissance_logistique(N0, r, K, T)
+    afficher_resultats(lin, exp, log, N0)
+    
 
 print(f"lineaire : debut={lin[0]} fin={lin[-1]:.2f}")
 print(f"exponentiel : debut={exp[0]} fin={exp[-1]:.2f}")
