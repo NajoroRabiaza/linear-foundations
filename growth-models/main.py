@@ -10,6 +10,8 @@
 #   Logistique : N(t+1) = N(t) + r * N(t) * (1 - N(t) / k)
 # =======================================================
 
+import matplotlib.pyplot as plt
+
 # Paramatres du modele
 N0 = 100 # population initiale
 r = 0.1 # taux de croissance
@@ -94,10 +96,34 @@ def afficher_resultats(lin, exp, log, N0):
     print("=" * 50)
 
 
+def afficher_graphe(lin, exp, log):
+    """
+    tracer les trois courbes de croissance sur le meme graphe
+    """
+    temps = list(range(T + 1))
+
+    plt.figure(figsize=(10, 6))
+    plt.plot(temps, lin, color="blue", label="lineaire")
+    plt.plot(temps, exp, color="red", label="exponentiel")
+    plt.plot(temps, log, color = "green", label="logistique")
+
+    # ligne horizontale a la capacite limite K
+    plt.axhline(y=K, color="gray", linestyle="--", label=f"capacite limiter K={K}")
+
+    plt.title("comparaison des trois modeles de croissance")
+    plt.xlabel("pas de temps")
+    plt.ylabel("population N(t)")
+    plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show()
+
+
 
 if __name__ == "__main__":
     lin = croissance_lineaire(N0, a, T)
     exp = croissance_exponentielle(N0, r, T)
     log = croissance_logistique(N0, r, K, T)
     afficher_resultats(lin, exp, log, N0)
+    afficher_graphe(lin, exp, log)
     
