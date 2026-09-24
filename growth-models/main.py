@@ -119,6 +119,40 @@ def afficher_graphe(lin, exp, log):
     plt.show()
 
 
+def afficher_bifurcation():
+    """
+    Diagramme de bifurcation classique.
+    On utilise la formule normaliser : x(t+1) = r * x(t) * (1-x(t))
+    x est compris entre 0 et 1 (population normaliser par K).
+    Quand r > 3 : oscillations
+    Quand r > 3.57 : chaos
+    """
+    valeurs_r = []
+    valeurs_x = []
+
+    r_test = 1.0
+    while r_test <= 4.0:
+        # population normaliser : x entre 0 et 1
+        x = 0.5
+
+        for t in range(300):
+            x = r_test * x * (1 - x)
+            # on ignore les 200 premiers pas (regime transitoire)
+            if t >= 200:
+                valeurs_r.append(r_test)
+                valeurs_x.append(x)
+            
+        r_test = round(r_test + 0.005, 3)
+
+    plt.figure(figsize=(12,6))
+    plt.plot(valeurs_r, valeurs_x, ",", color="black", alpha=0.5)
+    plt.title("Diagramme de bifurcation du modele logistique")
+    plt.xlabel("taux de croissance r")
+    plt.ylabel("population normaliser x (regime permanent)")
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show()
+
 
 if __name__ == "__main__":
     lin = croissance_lineaire(N0, a, T)
@@ -126,4 +160,4 @@ if __name__ == "__main__":
     log = croissance_logistique(N0, r, K, T)
     afficher_resultats(lin, exp, log, N0)
     afficher_graphe(lin, exp, log)
-    
+    afficher_bifurcation()
