@@ -3,11 +3,23 @@
 # Bloc : linear-foundations
 # Autheur: Amboaranajoro RAJAONARILALA
 # =======================================================
-# On a trois modele de croissance pour une population N(t):
-# 
+# Trois modele de croissance pour une population N(t): 
 #   lineaire : N(t) = N0 + a * t
+#       croissance constante, independante de la taille actuelle
+#
 #   Exponentiel : N(t) = N0 * (1 + r) ** t
+#       chaque individu produit r nouveau individus a chaque pas
+#       croissance illimitee, impossible dans un systeme reel
+#
 #   Logistique : N(t+1) = N(t) + r * N(t) * (1 - N(t) / k)
+#       exponentielle freinee par la capacite limite K
+#       quand N se rapproche de K, le terme (1 - N/K) tend vers 0
+#
+#   Diagramme de bifurcation - carte logistique normaliser :
+#       x(t+1) = r * x(t) * (1 - x(t)) avec x entre 0 et 1
+#       r < 3.0 : convergence vers un point fixe stable
+#       r > 3.0 : oscillations entre plusieurs valeurs
+#       r > 3.57 : chaos deterministe
 # =======================================================
 
 import matplotlib.pyplot as plt
